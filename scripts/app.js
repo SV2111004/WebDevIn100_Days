@@ -51,14 +51,26 @@ class WebDev100Days {
     // View toggle - removed since we only have table view now
     // Pagination
     document.addEventListener('click', (e) => {
-      if (e.target.matches('.pagination-btn')) {
-        const page = parseInt(e.target.dataset.page);
-        if (page && page !== this.currentPage) {
-          this.currentPage = page;
-          this.renderTable();
+  if (e.target.matches('.pagination-btn')) {
+    const page = parseInt(e.target.dataset.page);
+    if (page && page !== this.currentPage) {
+      this.currentPage = page;
+      this.renderTable();
+
+      // Scroll headings se start ho
+      setTimeout(() => {
+        const tableHead = document.querySelector("table thead");
+        if (tableHead) {
+          // Agar koi fixed header ya navbar height hai to uska offset nikal lo
+          const headerOffset = 80; // yahan apne header ki actual height set karo
+          const y = tableHead.getBoundingClientRect().top + window.scrollY - headerOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
         }
-      }
-    });
+      }, 50);
+    }
+  }
+});
+
 
     // Project row clicks - open demo in new tab
     document.addEventListener('click', (e) => {
